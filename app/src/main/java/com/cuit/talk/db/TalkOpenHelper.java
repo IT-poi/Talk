@@ -10,11 +10,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class TalkOpenHelper extends SQLiteOpenHelper{
 
+    public static final String DB_NAMW = "talk";
+
+    public static final int VERSION = 1;
+
     //创建用户数据表的sql
     private final String create_person = "create table person(" +
             "id integer primary key autoincrement, " +
             "number text, " +
-            "name text, " +
             "password text, " +
             "nickname text, " +
             "truename text, " +

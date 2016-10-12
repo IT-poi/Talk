@@ -15,16 +15,13 @@ import java.util.List;
  */
 
 public class MessageDao {
-    public static final String DB_NAMW = "talk";
-
-    public static final int VERSION = 1;
 
     private static MessageDao weatherDao;
 
     private SQLiteDatabase database;
 
     public MessageDao(Context context) {
-        TalkOpenHelper dbHelper = new TalkOpenHelper(context, DB_NAMW, null, VERSION);
+        TalkOpenHelper dbHelper = new TalkOpenHelper(context, TalkOpenHelper.DB_NAMW, null, TalkOpenHelper.VERSION);
         database = dbHelper.getWritableDatabase();
     }
 
