@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_marginTop="0dp"
+    android:gravity="center"
+    android:background="#13A6F0">
+
+    <com.cuit.talk.control.RoundImageView
+        android:id="@+id/title_left_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/head"/>
+
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textColor="#FFF"
+        android:text="消息"/>
+
+    <Button
+        android:id="@+id/title_right_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="#fff"
+        android:textSize="32dp"
+        android:text="+"
+        android:background="@drawable/title_left_button_selector"/>
+
+
+</LinearLayout>

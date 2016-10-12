@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_message_list_view"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <ImageView
+        android:id="@+id/message_list_item_touxiang_Iv"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.8"
+        android:padding="5dp"
+        android:gravity="center"
+        android:src="@drawable/head"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="8.2"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/message_list_item_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="left|center"
+                android:layout_weight="7"
+                android:textSize="16dp"
+                android:textColor="#393939"
+                android:text="忧伤的草"/>
+            <TextView
+                android:id="@+id/message_list_item_time"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="right|center"
+                android:layout_weight="3"
+                android:text="22:22"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/message_list_item_lastmessage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="left|center"
+                android:layout_weight="7"
+                android:textSize="12dp"
+                android:text="吃饭了吗"/>
+            <TextView
+                android:id="@+id/message_list_item_messagecount"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="right|center"
+                android:layout_weight="3"
+                android:text="5"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
