@@ -16,6 +16,10 @@ public class PersonDao {
 
     private SQLiteDatabase database;
 
+    /**
+     * 将构造函数私有化,防止通过new的方法获取实例
+     * @param context
+     */
     private PersonDao(Context context){
         TalkOpenHelper dbHelper = new TalkOpenHelper(context,
                 TalkOpenHelper.DB_NAMW, null, TalkOpenHelper.VERSION);
@@ -56,5 +60,46 @@ public class PersonDao {
             person.setAddress(cursor.getString(cursor.getColumnIndex("address")));
         }
         return person;
+    }
+
+    /**
+     * 向数据库中插入一行person数据
+     * @param person 用户信息
+     */
+    public void insertPerson(Person person){
+        String sql = "insert into person values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String[] values = new String[]{String.valueOf(person.getId()),person.getNumber(),
+                person.getPassword(), person.getNickname(), person.getTruename(), person.getSex(), String.valueOf(person.getAge()),
+                person.getPhone(), person.getAddress()};
+        database.execSQL(sql, values);
+    }
+
+    /**
+     * 根据传来的Person信息修改用户信息
+     * @param person
+     */
+    public void updatePerson(Person person){
+        String sql = "update person set password = ?, nickname, truename = ?, sex = ?, age = ?, phone = ?, address = ?" +
+                "where id = ?";
+        String[] values = new String[]{person.getPassword(), person.getNickname(), person.getTruename(),
+                person.getSex(), String.valueOf(person.getAge()), person.getPhone(), person.getAddress(), String.valueOf(person.getId())};
+        database.execSQL(sql, values);
+    }
+
+    /**
+     * 根据用户id删除用户数据(一般不使用这个操作)
+     * @param peronId
+     */
+    public void deletePersonById(int peronId){
+        //删除用户资料信息sql
+        String deletePersonSql = "delete from person where id = ?";
+        String[] values = new String[]{String.valueOf(peronId)};
+        //删除关联表中数据。。待实现,因为此方法一般不会使用到
+        database.beginTransaction();//开启事物
+        try{
+            database.execSQL(deletePersonSql, values);
+        }finally {
+            database.endTransaction();//最后结束事物,有两种情况commit,rollback
+        }
     }
 }
