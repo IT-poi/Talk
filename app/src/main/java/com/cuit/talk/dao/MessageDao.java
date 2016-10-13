@@ -59,16 +59,30 @@ public class MessageDao {
                 message.setSendTime(cursor.getString(cursor.getColumnIndex("send_time")));
             }while (cursor.moveToNext());
         }
+        cursor.close();
         return list;
     }
 
-    public int insertMessage(Message message){
+    /**
+     * 通过接受消息插入到数据库
+     * @param message 发送的消息
+     */
+    public void insertMessage(Message message){
 
         String sql = "insert into message values(?, ?, ?, ?, ?)";
-        String[] vaules = new String[]{String.valueOf(message.getId()),
+        String[] values = new String[]{String.valueOf(message.getId()),
                 String.valueOf(message.getSendId()), String.valueOf(message.getSendId()),
                 String.valueOf(message.getReceiveId()), message.getContent(), message.getSendTime()};
+        database.execSQL(sql,values);
+    }
 
-        return 0;
+
+    /**
+     * 通过消息id删除message
+     * @param id 消息的id
+     */
+    public void deleteMessageBySendId(int id){
+        String sql="delete from message where id=?";
+        database.execSQL(sql,new String[]{String.valueOf(id)});
     }
 }
