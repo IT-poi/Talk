@@ -3,8 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="20dp"
-    android:layoutDirection="rtl">
+    android:paddingBottom="20dp">
     <ImageView
         android:id="@+id/talk_message_list_send_item_imageView"
         android:layout_width="50dp"

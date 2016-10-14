@@ -50,8 +50,8 @@ public class TestTalkActivity extends Activity {
         message1.setSendId(1);
         message1.setReceiveId(0);
         Random random = new Random(47);
-        for(int i = 0;i<10;i++){
-            switch (random.nextInt(1)){
+        for(int i = 0;i<50;i++){
+            switch (random.nextInt(2)){
                 case 1:
                     messages.add(message);
                     break;
