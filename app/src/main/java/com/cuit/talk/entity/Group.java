@@ -13,6 +13,8 @@ public class Group {
     private String groupName;
     //所属Person id
     private int personId;
+    //分组创建的时间
+    private String createTime;
 
     private List<Person> personsList;
 
@@ -38,6 +40,14 @@ public class Group {
 
     public void setPersonId(int personId) {
         this.personId = personId;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
     public List<Person> getPersonsList() {

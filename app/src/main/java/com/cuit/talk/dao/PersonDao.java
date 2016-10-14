@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.cuit.talk.db.TalkOpenHelper;
+import com.cuit.talk.entity.Friend;
 import com.cuit.talk.entity.Person;
 
 /**
@@ -16,11 +17,14 @@ public class PersonDao {
 
     private SQLiteDatabase database;
 
+    private Context context;
+
     /**
      * 将构造函数私有化,防止通过new的方法获取实例
      * @param context
      */
     private PersonDao(Context context){
+        this.context = context;
         TalkOpenHelper dbHelper = new TalkOpenHelper(context,
                 TalkOpenHelper.DB_NAMW, null, TalkOpenHelper.VERSION);
         database = dbHelper.getWritableDatabase();
@@ -101,5 +105,28 @@ public class PersonDao {
         }finally {
             database.endTransaction();//最后结束事物,有两种情况commit,rollback
         }
+    }
+
+    /**
+     * 删除好友
+     * @param personId 用户id
+     * @param friendId 好友id
+     */
+    public void deleteFriendById(int personId, int friendId){
+        String deleteFriendSql = "delete from friend where person_id = ? and friend_id = ?";
+        String[] values = new String[]{String.valueOf(personId), String.valueOf(friendId)};
+        //开启事物保证操作要么全部成功要么全部失败
+        database.beginTransaction();
+        try{
+            database.execSQL(deleteFriendSql, values);
+        }finally {
+            //事物结束
+            database.endTransaction();
+        }
+    }
+
+    //TODO
+    public void addFriend(Friend friend){
+        String sql = "insert into friend values(?,?,?,?)";
     }
 }

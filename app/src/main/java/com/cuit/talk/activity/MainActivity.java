@@ -46,22 +46,6 @@ public class MainActivity extends FragmentActivity {
     }
 
     public void initData(){
-//        armTypes = new String[]{
-//                "我的好友", "朋友", "家人", "那个ta", "ADC", "TANK", "法师", "刺客", "战士", "小兵"
-//        };
-//        arms = new String[][]{
-//                {"文档编辑", "文档排版", "文档处理", "文档打印"},
-//                {"表格编辑", "表格排版", "表格处理", "表格打印"},
-//                {"收发邮件", "管理邮箱", "登录登出", "注册绑定"},
-//                {"演示编辑", "演示排版", "演示处理", "演示打印"},
-//                {"奥巴马", "艾希", "轮子妈", "vn"},
-//                {"石头人", "泰坦", "波比", "哨兵"},
-//                {"发条", "维克托", "幸德拉", "光辉"},
-//                {"劫", "妖姬", "卡特琳娜", "男刀"},
-//                {"刀妹", "武器", "瑞文", "鳄鱼"},
-//                {"战士兵", "法师兵", "跑车兵", "超级兵"}
-//        };
-
         messageFragmentView = new MessageListFragment();
         friendListFragmentView = new FrendListFragment();
         viewList.add(messageFragmentView);

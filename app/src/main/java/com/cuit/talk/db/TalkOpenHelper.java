@@ -36,11 +36,15 @@ public class TalkOpenHelper extends SQLiteOpenHelper{
     private final String create_groups = "create table group(" +
             "id integer primary key autoincrement, " +
             "group_name text, " +
-            "person_id integer)";
+            "person_id integer, " +
+            "create_time text)";
     //创建好友数据表的sql
     private final String create_friend = "create table friend(" +
-            "id integer, " +
-            "group_id integer)";
+            "id integer primary key autoincrement, " +
+            "person_id integer, " +
+            "group_id integer, " +
+            "friend_id integer, " +
+            "create_time text)";
 
     public TalkOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

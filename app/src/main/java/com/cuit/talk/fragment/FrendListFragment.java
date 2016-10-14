@@ -22,8 +22,6 @@ public class FrendListFragment extends Fragment {
 
     private String[][] arms;
 
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

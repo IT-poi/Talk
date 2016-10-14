@@ -72,13 +72,15 @@ public class GroupDao {
                 group.setGroupName(cursor.getString(cursor.getColumnIndex("group_name")));
                 group.setPersonId(cursor.getInt(cursor.getColumnIndex("personId")));
 
+                //通过分组id去查询该分组下的所有好友id
                 String[] groudIdValue = new String[]{String.valueOf(cursor.getInt(cursor.getColumnIndex("id")))};
                 List<Person> personList = null;
                 Cursor perCursor = database.rawQuery(friendSql,groudIdValue);
                 if (perCursor.moveToFirst()){
                     personList = new ArrayList<Person>();
                     do {
-                        Person person = personDao.queryPersonById(cursor.getInt(cursor.getColumnIndex("person_id")));
+                        //通过好友id去查找该好友的信息
+                        Person person = personDao.queryPersonById(cursor.getInt(cursor.getColumnIndex("friend_id")));
                         personList.add(person);
                     }while(perCursor.moveToNext());
                 }
@@ -88,5 +90,30 @@ public class GroupDao {
             }while(cursor.moveToNext());
         }
         return groups;
+    }
+
+    public Group queryGroupByFriendId(){
+
+        return null;
+    }
+    /**
+     * 增加分组
+     * @param group 分组信息
+     */
+    public void addGroup(Group group){
+        String sql = "insert into group values(?, ?, ?, ?)";
+        String[] values = new String[]{String.valueOf(group.getId()), group.getGroupName(),
+                String.valueOf(group.getPersonId()), group.getCreateTime()};
+        database.execSQL(sql, values);
+    }
+
+    /**
+     * 修改分组的分组名
+     * @param group
+     */
+    public void updateGroup(Group group){
+        String sql = "update group set group_name = ? where id = ?";
+        String[] values = new String[]{group.getGroupName(), String.valueOf(group.getId())};
+        database.execSQL(sql,values);
     }
 }
