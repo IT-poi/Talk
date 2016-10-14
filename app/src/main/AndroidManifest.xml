@@ -16,6 +16,15 @@
 
              <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter>
+<<<<<<< HEAD
+=======
+        </activity>
+        <activity android:name=".TestTalkActivity">
+
+        </activity>
+        <activity android:name=".LoginActivity">
+
+>>>>>>> origin/master
         </activity>
     </application>
 
