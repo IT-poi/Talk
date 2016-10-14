@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cuit.talk.activity.LoginActivity"
+    android:orientation="vertical"
+    android:background="#efecec">
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/login_touxiang"
+        android:layout_marginTop="60dp"/>
+    <EditText
+        android:id="@+id/login_number_et"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/round_control_style"
+        android:hint="手机号"
+        android:paddingLeft="10dp"
+        android:textSize="16sp"
+        android:textColor="#101010" />
+    <EditText
+        android:id="@+id/login_password_et"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="0.5dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/round_control_style"
+        android:hint="密码"
+        android:inputType="numberPassword"
+        android:textSize="16sp"
+        android:textColor="#101010" />
+    <Button
+        android:id="@+id/login_login_bt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="login in"
+        android:textColor="#fff"
+        android:textSize="16sp"
+        android:background="@drawable/login_button_selector"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/login_question_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#00d6d3d3"
+                android:textSize="14sp"
+                android:text="无法登录?"
+                android:textColor="#66bfec"/>
+            <Button
+                android:id="@+id/login_register_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#00d6d3d3"
+                android:textSize="14sp"
+                android:text="新用户注册"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:textColor="#66bfec" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>
