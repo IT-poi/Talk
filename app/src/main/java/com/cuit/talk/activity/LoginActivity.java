@@ -51,7 +51,7 @@ public class LoginActivity extends Activity {
             @Override
             public void afterTextChanged(Editable editable) {
                 Log.d("afterTextChanged2", editable.toString());
-                Log.d("afterTextChanged3", String.valueOf(allData.length));
+                Log.d("afterTextChanged4", String.valueOf(allData.length));
                 for(int i = 0;i<allData.length;i++){
                     if(editable.toString().equals(allData[i].split(",")[0])){
                         inputPasswordET.setText(allData[i].split(",")[1]);
