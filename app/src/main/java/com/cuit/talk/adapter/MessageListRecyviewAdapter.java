@@ -28,7 +28,6 @@ public class MessageListRecyviewAdapter extends RecyclerView.Adapter {
          * @param position
          */
         void onItemClick(Context context, int position);
-
         /**
          * 长按item会回调此函数,同上
          * @param position
@@ -53,11 +52,6 @@ public class MessageListRecyviewAdapter extends RecyclerView.Adapter {
     public MessageListRecyviewAdapter(List<MessageSimple> list) {
         this.list = list;
     }
-
-
-
-
-
 
 
     @Override

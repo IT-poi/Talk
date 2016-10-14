@@ -76,7 +76,6 @@ public class MessageDao {
         database.execSQL(sql,values);
     }
 
-
     /**
      * 通过消息id删除message
      * @param id 消息的id

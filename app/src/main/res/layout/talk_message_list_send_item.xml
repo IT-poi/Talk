@@ -2,6 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layoutDirection="rtl"
+    android:paddingBottom="20dp">
+    <ImageView
+        android:id="@+id/talk_message_list_recieve_item_imageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/talk_touxiang"
+        android:padding="5dp"
+        android:layout_gravity="end"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/talk_message_list_recieve_item_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15sp"
+            android:paddingRight="30sp"
+            android:background="@drawable/message_right"
+            android:gravity="center_vertical"
+            android:textSize="14dp"
+            android:maxWidth="250dp"/>
+    </LinearLayout>
+
+
 
 </LinearLayout>
