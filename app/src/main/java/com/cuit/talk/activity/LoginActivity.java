@@ -36,7 +36,7 @@ public class LoginActivity extends Activity {
     private void handleRememberPassword(){
         handleRemPass = HandleRemPass.getInstance(LoginActivity.this);
         final String[] allData = handleRemPass.getAllData().split(";");
-        Log.d("afterTextChanged1", handleRemPass.getAllData());
+        Log.d("afterTextChanged1", handleRemPass.getAllData()+"world");
         inputNumberET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -51,9 +51,10 @@ public class LoginActivity extends Activity {
             @Override
             public void afterTextChanged(Editable editable) {
                 Log.d("afterTextChanged2", editable.toString());
-                Log.d("afterTextChanged4", String.valueOf(allData.length));
+                Log.d("afterTextChanged4", allData[0].split(",")[0]+"hello");
+                Log.d("afterTextChanged5", String.valueOf(allData.length));
                 for(int i = 0;i<allData.length;i++){
-                    if(editable.toString().equals(allData[i].split(",")[0])){
+                    if((editable.toString()).compareTo(allData[i].split(",")[0])==0){
                         inputPasswordET.setText(allData[i].split(",")[1]);
                     }else {
                         inputNumberET.setText("");
