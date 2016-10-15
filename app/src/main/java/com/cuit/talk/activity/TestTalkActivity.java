@@ -30,10 +30,12 @@ public class TestTalkActivity extends Activity {
         setContentView(R.layout.talk_message_layout);
         sendMessage_BT= (Button) findViewById(R.id.talk_message_layout_button);
         inputMessage_ET= (EditText) findViewById(R.id.talk_message_layout_editText);
-        messageList_RV= (RecyclerView) findViewById(R.id.recycler_view_talk_message_rv);
+
+        messageList_RV = (RecyclerView) findViewById(R.id.recycler_view_talk_message_rv);
         messageList_RV.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(TestTalkActivity.this);
         messageList_RV.setLayoutManager(layoutManager);
+
         initData();
         adapter = new TalkMessageRecyviewAdapter(messages,1);
         messageList_RV.setAdapter(adapter);

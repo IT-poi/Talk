@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d7d5d5">
+    android:background="#f1eeee">
 
     <com.cuit.talk.control.TalkTitleLayout
         android:layout_width="match_parent"
