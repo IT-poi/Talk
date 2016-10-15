@@ -30,13 +30,11 @@ public class TalkMessageRecyviewAdapter extends RecyclerView.Adapter{
     public TalkMessageRecyviewAdapter(final List<Message> messages,int myselfId){
 
         this.messages = messages;
-        Log.d("TalkMessage", String.valueOf(this.messages.size())+this.messages.get(0).getContent());
         this.myselfId = myselfId;
     }
 
     @Override
     public int getItemViewType(int position) {
-        Log.d("getItemViewType", String.valueOf(position));
         Message message = messages.get(position);
         if (message.getReceiveId()==myselfId){
             return MESSAGE_TYPE_RECEIVE;
@@ -53,7 +51,6 @@ public class TalkMessageRecyviewAdapter extends RecyclerView.Adapter{
      */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.d("onCreateViewHolder","world");
         View view = null;
         if(viewType == MESSAGE_TYPE_RECEIVE){
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout
@@ -74,7 +71,6 @@ public class TalkMessageRecyviewAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MyHolder myHolder = (MyHolder) holder;
         Message message = messages.get(position);
-        Log.d("TalkMessage123", message.getContent());
         myHolder.position = position;
         if(message.getReceiveId()==myselfId){
             myHolder.messageSendTV.setText( messages.get(position).getContent());
@@ -91,7 +87,6 @@ public class TalkMessageRecyviewAdapter extends RecyclerView.Adapter{
      */
     @Override
     public int getItemCount() {
-        Log.d("getItemCount", String.valueOf(messages.size()));
         return messages.size();
     }
 
@@ -105,7 +100,6 @@ public class TalkMessageRecyviewAdapter extends RecyclerView.Adapter{
         int position;
         public MyHolder(View itemView) {
             super(itemView);
-            Log.d("MyHolder",itemView.toString());
             messageReceiveTV = (TextView) itemView.findViewById(R.id.talk_message_list_recieve_item_textView);
             messageSendTV = (TextView) itemView.findViewById(R.id.talk_message_list_send_item_textView);
         }

@@ -71,7 +71,7 @@ public class MessageListFragment extends Fragment {
 
         adapter = new MessageListRecyviewAdapter(messageSimpleList);
 
-        adapter.setOnRecyclerViewListener(new MessageListRecyviewAdapter.OnRecyclerViewListener() {
+        adapter.setOnRecyclerListener(new MessageListRecyviewAdapter.OnRecyclerViewListener() {
             @Override
             public void onItemClick(Context context, int position) {
                 Toast.makeText(container.getContext(), "长按可以删除哦", Toast.LENGTH_SHORT).show();

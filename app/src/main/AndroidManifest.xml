@@ -12,22 +12,22 @@
 
         </activity>
         <activity android:name=".TestTalkActivity">
-
-        </activity>
-
-        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".LoginActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
         <activity android:name=".RegisterActivity">
 
         </activity>
+        <service android:name="com.cuit.talk.service.SendMessageService"/>
     </application>
+</manifest>
 
-<<<<<<< Updated upstream
-</manifest>
-=======
-</manifest>
->>>>>>> Stashed changes

@@ -1,10 +1,12 @@
 package com.cuit.talk.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by inori on 16/10/9.
  */
 
-public class Message {
+public class Message implements Serializable {
     //id
     private int id;
     //发送消息者id
