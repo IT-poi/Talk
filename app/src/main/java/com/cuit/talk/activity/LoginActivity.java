@@ -99,6 +99,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     inputPasswordET.setHint("请输入密码");
                 }else {
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    intent.putExtra("personId","1");
                     startActivity(intent);
 //                    String json = new Gson().toJson(personSimple);
 //                    OkHttpUtils.postString()

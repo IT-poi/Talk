@@ -16,6 +16,7 @@ import java.util.List;
  */
 
 public class GroupDao {
+
     private static GroupDao gropDao;
 
     private SQLiteDatabase database;
@@ -54,7 +55,7 @@ public class GroupDao {
      */
     public List<Group> queryGroupListByPersonId(int personId){
         //查询当前用户的所有的好友列表
-        String groupSql = "select * from group where person_id = ?";
+        String groupSql = "select * from friend_groups where person_id = ?";
         //查询当前列表下的所有好友
         String friendSql = "select * from friend where group_id = ?";
         //提供PersonId数据
@@ -101,7 +102,7 @@ public class GroupDao {
      * @param group 分组信息
      */
     public void addGroup(Group group){
-        String sql = "insert into group values(?, ?, ?, ?)";
+        String sql = "insert into friend_groups values(?, ?, ?, ?)";
         String[] values = new String[]{String.valueOf(group.getId()), group.getGroupName(),
                 String.valueOf(group.getPersonId()), group.getCreateTime()};
         database.execSQL(sql, values);
@@ -112,7 +113,7 @@ public class GroupDao {
      * @param group
      */
     public void updateGroup(Group group){
-        String sql = "update group set group_name = ? where id = ?";
+        String sql = "update friend_groups set group_name = ? where id = ?";
         String[] values = new String[]{group.getGroupName(), String.valueOf(group.getId())};
         database.execSQL(sql,values);
     }

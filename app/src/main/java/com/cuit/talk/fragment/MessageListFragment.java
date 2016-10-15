@@ -78,6 +78,7 @@ public class MessageListFragment extends Fragment {
                 Intent intent = new Intent(context, TestTalkActivity.class);
                 intent.putExtra("personId",personId);
                 intent.putExtra("",messageSimpleList.get(position).getFriendId());
+                startActivity(intent);
             }
 
             @Override
@@ -103,6 +104,9 @@ public class MessageListFragment extends Fragment {
         queryMessageSampleList(context);
         for (int i = 0; i < 10; ++i) {
             MessageSimple messageSimple = new MessageSimple();
+            messageSimple.setFriendId(i);
+            messageSimple.setFriendNickname("忧伤的草");
+            messageSimple.setMessageContent("从天而降的美丽不是草的忧伤-");
             messageSimpleList.add(messageSimple);
         }
     }
@@ -114,12 +118,15 @@ public class MessageListFragment extends Fragment {
             messageSimpleList = (ArrayList<MessageSimple>) ois.readObject();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            if (messageSimpleList == null){
+                messageSimpleList = new ArrayList<MessageSimple>();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            if (messageSimpleList == null){
+                messageSimpleList = new ArrayList<MessageSimple>();
+            }
         }
     }
-
-
 }

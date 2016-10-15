@@ -33,7 +33,7 @@ public class TalkOpenHelper extends SQLiteOpenHelper{
             "content text, " +
             "send_time text)";
     //创建分组数据表的sql
-    private final String create_groups = "create table group(" +
+    private final String create_groups = "create table friend_groups(" +
             "id integer primary key autoincrement, " +
             "group_name text, " +
             "person_id integer, " +
@@ -53,9 +53,9 @@ public class TalkOpenHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(create_person);
-        sqLiteDatabase.execSQL(create_groups);
         sqLiteDatabase.execSQL(create_friend);
         sqLiteDatabase.execSQL(create_message);
+        sqLiteDatabase.execSQL(create_groups);
     }
 
     @Override

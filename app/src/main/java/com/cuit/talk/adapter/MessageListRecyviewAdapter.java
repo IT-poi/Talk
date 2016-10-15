@@ -68,6 +68,8 @@ public class MessageListRecyviewAdapter extends RecyclerView.Adapter {
         Log.d(TAG, "onBindViewHolder, position: " + position + " , holder: " + holder);
         MessageViewHolder viewHolder = (MessageViewHolder)holder;
         MessageSimple messageSimple = list.get(position);
+        viewHolder.nameTv.setText(messageSimple.getFriendNickname());
+        viewHolder.messageTv.setText(messageSimple.getMessageContent());
         viewHolder.position = position;
 //        viewHolder.nameTv.setText(messageSimple.getMessageContent());
     }

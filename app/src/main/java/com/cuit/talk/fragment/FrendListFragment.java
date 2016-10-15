@@ -16,7 +16,9 @@ import com.cuit.talk.adapter.FriendExpandableListAdapter;
 import com.cuit.talk.dao.GroupDao;
 import com.cuit.talk.dao.PersonDao;
 import com.cuit.talk.entity.Group;
+import com.cuit.talk.entity.Person;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -71,6 +73,25 @@ public class FrendListFragment extends Fragment {
         personId = bundle.getInt("personId");
         groupDao = GroupDao.getInsetance(container.getContext());
         groupList = groupDao.queryGroupListByPersonId(personId);
+        if(groupList==null){
+            groupList = new ArrayList<Group>();
+
+            Group group = new Group();
+            group.setId(1);
+            group.setPersonId(1);
+            group.setGroupName("我的好友");
+            group.setCreateTime("2015-6-24");
+            List<Person> personList = new ArrayList<Person>();
+
+            Person person = new Person();
+            person.setNickname("孤独的日");
+            personList.add(person);
+            Person person1 = new Person();
+            person1.setNickname("闪烁的星");
+            personList.add(person1);
+            group.setPersonsList(personList);
+            groupList.add(group);
+        }
 
         armTypes = new String[]{
                 "我的好友", "朋友", "家人", "那个ta", "ADC", "TANK", "法师", "刺客", "战士", "小兵"
