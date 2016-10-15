@@ -13,6 +13,10 @@ import android.widget.Toast;
 
 import com.cuit.talk.activity.MainActivity;
 import com.cuit.talk.activity.R;
+import com.cuit.talk.entity.Group;
+import com.cuit.talk.entity.Person;
+
+import java.util.List;
 
 /**
  * Created by inori on 16/10/5.
@@ -21,14 +25,11 @@ public class FriendExpandableListAdapter implements ExpandableListAdapter {
 
     private Context context;
 
-    private String[] armTypes;
+    private List<Group> groupList;
 
-    private String[][] arms;
-
-    public FriendExpandableListAdapter(Context context, String[]armTypes, String[][] arms) {
+    public FriendExpandableListAdapter(Context context, List<Group> groupList) {
         this.context = context;
-        this.armTypes = armTypes;
-        this.arms = arms;
+        this.groupList = groupList;
     }
 
     @Override
@@ -46,7 +47,7 @@ public class FriendExpandableListAdapter implements ExpandableListAdapter {
      */
     @Override
     public int getGroupCount() {
-        return armTypes.length;
+        return groupList.size();
     }
 
     /**
@@ -56,7 +57,7 @@ public class FriendExpandableListAdapter implements ExpandableListAdapter {
      */
     @Override
     public int getChildrenCount(int groupPosition) {
-        return arms[groupPosition].length;
+        return groupList.get(groupPosition).getPersonsList().size();
     }
 
     /**
@@ -66,12 +67,12 @@ public class FriendExpandableListAdapter implements ExpandableListAdapter {
      */
     @Override
     public Object getGroup(int groupPosition) {
-        return armTypes[groupPosition];
+        return groupList.get(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return arms[groupPosition][childPosition];
+        return groupList.get(groupPosition).getPersonsList().get(childPosition);
     }
 
     @Override
@@ -109,8 +110,9 @@ public class FriendExpandableListAdapter implements ExpandableListAdapter {
         }else {
             groupHolder = (HolderGroup) convertView.getTag();
         }
-        groupHolder.groupText.setText(getGroup(groupPosition).toString());
-
+        //取出组的实体
+        Group group = (Group)getGroup(groupPosition);
+        groupHolder.groupText.setText(group.getGroupName());
         return convertView;
     }
 
@@ -134,6 +136,8 @@ public class FriendExpandableListAdapter implements ExpandableListAdapter {
         }else {
             holder = (HolderChild) convertView.getTag();
         }
+        //取出子项Person的实体
+        Person person = (Person) getChild(groupPosition, childPosition);
         holder.childImage.setImageResource(R.drawable.head);
         holder.childImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +147,7 @@ public class FriendExpandableListAdapter implements ExpandableListAdapter {
                 context.startActivity(intent);
             }
         });
-        holder.childText.setText(getChild(groupPosition, childPosition).toString());
+        holder.childText.setText(person.getNickname());
         return convertView;
     }
 
@@ -183,7 +187,6 @@ public class FriendExpandableListAdapter implements ExpandableListAdapter {
     }
 
     public class HolderGroup{
-        private ImageView groupImage;
         private TextView groupText;
 
     }

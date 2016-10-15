@@ -22,6 +22,8 @@ import java.util.List;
 
 public class MainActivity extends FragmentActivity {
 
+    public static final String MESSAGE_LIST_FILE = "message_list_file";
+
     private android.support.design.widget.TabLayout tableLayout;
     private ViewPager viewPager;
 
@@ -34,20 +36,27 @@ public class MainActivity extends FragmentActivity {
     private List<String> titleList = new ArrayList<String>();
     private List<Fragment> viewList = new ArrayList<Fragment>();
     private Fragment messageFragmentView, friendListFragmentView, view3, view4, view5;
-
+    //登陆用户id
+    private int personId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        personId = Integer.valueOf(getIntent().getStringExtra("personId"));
 
         initData();
         initView();
     }
 
     public void initData(){
+        Bundle bundle = new Bundle();
+        bundle.putInt("personId", personId);
         messageFragmentView = new MessageListFragment();
+        messageFragmentView.setArguments(bundle);
         friendListFragmentView = new FrendListFragment();
+        friendListFragmentView.setArguments(bundle);
+
         viewList.add(messageFragmentView);
         viewList.add(friendListFragmentView);
         titleList.add("消息");

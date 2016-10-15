@@ -12,12 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.cuit.talk.activity.MainActivity;
 import com.cuit.talk.activity.R;
+import com.cuit.talk.activity.TestTalkActivity;
 import com.cuit.talk.adapter.MessageListRecyviewAdapter;
 import com.cuit.talk.dependen.DividerItemDecoration;
 import com.cuit.talk.entity.Message;
 import com.cuit.talk.entity.MessageSimple;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +36,8 @@ public class MessageListFragment extends Fragment {
     private MessageListRecyviewAdapter adapter;
 
     private List<MessageSimple> messageSimpleList;
+    //登陆者id
+    private int personId;
 
     private RecyclerView recyclerView;
 
@@ -59,7 +67,7 @@ public class MessageListFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        initData();
+        initData(getActivity());
 
         adapter = new MessageListRecyviewAdapter(messageSimpleList);
 
@@ -67,6 +75,9 @@ public class MessageListFragment extends Fragment {
             @Override
             public void onItemClick(Context context, int position) {
                 Toast.makeText(container.getContext(), "长按可以删除哦", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, TestTalkActivity.class);
+                intent.putExtra("personId",personId);
+                intent.putExtra("",messageSimpleList.get(position).getFriendId());
             }
 
             @Override
@@ -85,13 +96,30 @@ public class MessageListFragment extends Fragment {
         return view;
     }
 
-    private void initData(){
-        messageSimpleList = new ArrayList<MessageSimple>();
-        for (int i = 0; i < 30; ++i) {
+    private void initData(Context context){
+        Bundle bundle = getArguments();
+        personId = bundle.getInt("personId");
+        messageSimpleList = null;
+        queryMessageSampleList(context);
+        for (int i = 0; i < 10; ++i) {
             MessageSimple messageSimple = new MessageSimple();
             messageSimpleList.add(messageSimple);
         }
-
-
     }
+
+    private void queryMessageSampleList(Context context){
+        try {
+            FileInputStream inputStream = context.openFileInput(MainActivity.MESSAGE_LIST_FILE);
+            ObjectInputStream ois = new ObjectInputStream(inputStream);
+            messageSimpleList = (ArrayList<MessageSimple>) ois.readObject();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

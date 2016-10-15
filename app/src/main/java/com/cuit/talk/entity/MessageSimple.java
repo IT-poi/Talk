@@ -5,20 +5,30 @@ package com.cuit.talk.entity;
  */
 
 public class MessageSimple {
-    private String messageSendPersonName;
+    private int friendId;
+
+    private String friendNickname;
 
     private String messageContent;
 
-    private String sendTime;
+    private String lastMessageTime;
 
     private int messageCount;
 
-    public String getMessageSendPersonName() {
-        return messageSendPersonName;
+    public int getFriendId() {
+        return friendId;
     }
 
-    public void setMessageSendPersonName(String messageSendPersonName) {
-        this.messageSendPersonName = messageSendPersonName;
+    public void setFriendId(int friendId) {
+        this.friendId = friendId;
+    }
+
+    public String getFriendNickname() {
+        return friendNickname;
+    }
+
+    public void setFriendNickname(String friendNickname) {
+        this.friendNickname = friendNickname;
     }
 
     public String getMessageContent() {
@@ -29,12 +39,12 @@ public class MessageSimple {
         this.messageContent = messageContent;
     }
 
-    public String getSendTime() {
-        return sendTime;
+    public String getLastMessageTime() {
+        return lastMessageTime;
     }
 
-    public void setSendTime(String sendTime) {
-        this.sendTime = sendTime;
+    public void setLastMessageTime(String lastMessageTime) {
+        this.lastMessageTime = lastMessageTime;
     }
 
     public int getMessageCount() {
