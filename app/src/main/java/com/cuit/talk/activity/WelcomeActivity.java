@@ -72,7 +72,7 @@ public class WelcomeActivity extends Activity {
             @Override
             public void run() {
                 try {
-                    sleep(1);
+                    sleep(300);
                     initData();
                     Message message = new Message();
                     message.what = 1;

@@ -101,8 +101,8 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     protected void onDestroy() {
-        unbindService(receiveConnection);
-        stopService(receiveServiceIntent);
+//        unbindService(receiveConnection);
+//        stopService(receiveServiceIntent);
         super.onDestroy();
     }
 }
