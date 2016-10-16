@@ -16,6 +16,17 @@ public class Group {
     //分组创建的时间
     private String createTime;
 
+    public Group(int id, String groupName, int personId, String createTime, List<Person> personsList) {
+        this.id = id;
+        this.groupName = groupName;
+        this.personId = personId;
+        this.createTime = createTime;
+        this.personsList = personsList;
+    }
+
+    public Group() {
+    }
+
     private List<Person> personsList;
 
     public int getId() {

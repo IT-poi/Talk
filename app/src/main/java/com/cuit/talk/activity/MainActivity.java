@@ -43,7 +43,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-        personId = Integer.valueOf(getIntent().getStringExtra("personId"));
+        personId = getIntent().getIntExtra("personId", 0);
 
         initData();
         initView();

@@ -2,6 +2,7 @@ package com.cuit.talk.dao;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.cuit.talk.db.TalkOpenHelper;
@@ -67,15 +68,44 @@ public class PersonDao {
     }
 
     /**
+     * 通过number查询对应的person信息
+     * @param personNumber 用户id
+     * @return 用户信息
+     */
+    public Person queryPersonByNumber(String personNumber){
+        String sql = "select * from person where number = ?";
+        Cursor cursor = database.rawQuery(sql, new String[]{personNumber});
+        Person person = null;
+        if (cursor.moveToFirst()){
+            person = new Person();
+            person.setId(cursor.getInt(cursor.getColumnIndex("id")));
+            person.setNumber(cursor.getString(cursor.getColumnIndex("number")));
+            person.setPassword(cursor.getString(cursor.getColumnIndex("password")));
+            person.setNickname(cursor.getString(cursor.getColumnIndex("nickname")));
+            person.setTruename(cursor.getString(cursor.getColumnIndex("truename")));
+            person.setSex(cursor.getString(cursor.getColumnIndex("sex")));
+            person.setAge(cursor.getInt(cursor.getColumnIndex("age")));
+            person.setPhone(cursor.getString(cursor.getColumnIndex("phone")));
+            person.setAddress(cursor.getString(cursor.getColumnIndex("address")));
+        }
+        return person;
+    }
+
+    /**
      * 向数据库中插入一行person数据
      * @param person 用户信息
      */
-    public void insertPerson(Person person){
+    public Boolean insertPerson(Person person){
         String sql = "insert into person values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String[] values = new String[]{String.valueOf(person.getId()),person.getNumber(),
                 person.getPassword(), person.getNickname(), person.getTruename(), person.getSex(), String.valueOf(person.getAge()),
                 person.getPhone(), person.getAddress()};
-        database.execSQL(sql, values);
+        try{
+            database.execSQL(sql, values);
+        }catch (SQLiteConstraintException e){
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -127,6 +157,13 @@ public class PersonDao {
 
     //TODO
     public void addFriend(Friend friend){
-        String sql = "insert into friend values(?,?,?,?)";
+        String sql = "insert into friend values(?, ?, ?, ?, ?)";
+        String[] values = new String[] {String.valueOf(friend.getId()), String.valueOf(friend.getPersonId()),
+                String.valueOf(friend.getGroupId()), String.valueOf(friend.getFriendId()), friend.getCreateTime()};
+        try{
+            database.execSQL(sql, values);
+        }catch (SQLiteConstraintException e){
+
+        }
     }
 }

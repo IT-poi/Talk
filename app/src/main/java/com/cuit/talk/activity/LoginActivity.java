@@ -13,6 +13,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.cuit.talk.dao.PersonDao;
 import com.cuit.talk.entity.Person;
 import com.cuit.talk.entity.PersonSimple;
 import com.cuit.talk.util.HandleRemPass;
@@ -35,6 +36,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private EditText inputNumberET;
     private EditText inputPasswordET;
     HandleRemPass handleRemPass = null;
+    private PersonDao personDao;
+
     private String loginIpAddress = "http://196.128:8080/login/commit";//登录请求的ip地址
     private List<PersonSimple> list = null;//本地的所有用户信息
     @Override
@@ -97,10 +100,23 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 }else if(TextUtils.isEmpty(password)){
                     inputPasswordET.setHintTextColor(getResources().getColor(R.color.colorError));
                     inputPasswordET.setHint("请输入密码");
-                }else {
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                    intent.putExtra("personId","1");
-                    startActivity(intent);
+                }else{
+                    personDao = PersonDao.getInsetance(this);
+                    Person person = personDao.queryPersonByNumber(number);
+                    if(person == null){
+                        inputNumberET.setText("");
+                        inputPasswordET.setText("");
+                        inputNumberET.setHint("该用户不存在");
+                    }else if (!person.getPassword().equals(password)){
+                        inputPasswordET.setText("");
+                        inputPasswordET.setHint("密码错误");
+                    }else{
+                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        intent.putExtra("personId",person.getId());
+                        startActivity(intent);
+                    }
+
+
 //                    String json = new Gson().toJson(personSimple);
 //                    OkHttpUtils.postString()
 //                            .url(loginIpAddress)
