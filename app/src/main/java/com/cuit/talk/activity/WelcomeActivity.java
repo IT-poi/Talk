@@ -72,7 +72,7 @@ public class WelcomeActivity extends Activity {
             @Override
             public void run() {
                 try {
-                    sleep(1000);
+                    sleep(1);
                     initData();
                     Message message = new Message();
                     message.what = 1;
@@ -117,14 +117,20 @@ public class WelcomeActivity extends Activity {
             friend.setFriendId(1);
             friend.setCreateTime("2015-08-10");
             personDao.addFriend(friend);
-            friend.setFriendId(2);
-            personDao.addFriend(friend);
-            friend.setFriendId(3);
-            personDao.addFriend(friend);
-            friend.setFriendId(4);
-            friend.setGroupId(3);
-            personDao.addFriend(friend);
-
+            Friend friend1 = new Friend();
+            friend1.setId(1);
+            friend1.setGroupId(0);
+            friend1.setPersonId(10);
+            friend1.setFriendId(2);
+            friend1.setCreateTime("2015-08-10");
+            personDao.addFriend(friend1);
+            Friend friend2 = new Friend();
+            friend2.setId(2);
+            friend2.setGroupId(3);
+            friend2.setPersonId(10);
+            friend2.setFriendId(3);
+            friend2.setCreateTime("2015-08-10");
+            personDao.addFriend(friend2);
             editor.putBoolean("firstUse", false);
         }
     }

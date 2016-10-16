@@ -28,10 +28,9 @@ public class TitleActivity extends Activity {
         add_friend_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TitleActivity.this, AddFriendActivity.class);
+                Intent intent = new Intent(view.getContext(), AddFriendActivity.class);
                 startActivity(intent);
             }
         });
-
     }
 }
