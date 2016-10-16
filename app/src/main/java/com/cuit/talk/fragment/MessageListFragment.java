@@ -21,8 +21,10 @@ import com.cuit.talk.entity.MessageSimple;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,10 +82,18 @@ public class MessageListFragment extends Fragment {
                 startActivity(intent);
             }
 
+            /**
+             * 长按删除回调方法
+             * @param context
+             * @param position
+             * @return
+             */
             @Override
             public boolean onItemLongClick(Context context, int position) {
                 adapter.notifyItemRemoved(position);
                 messageSimpleList.remove(position);
+                //将修改后的list写入文件
+                saveMessageSimpleList(context, messageSimpleList);
                 adapter.notifyItemRangeChanged(position, adapter.getItemCount());
                 return false;
             }
@@ -125,6 +135,34 @@ public class MessageListFragment extends Fragment {
         } catch (ClassNotFoundException e) {
             if (messageSimpleList == null){
                 messageSimpleList = new ArrayList<MessageSimple>();
+            }
+        }
+    }
+
+    private void saveMessageSimpleList(Context context, List<MessageSimple> list){
+        FileOutputStream outputStream = null;
+        ObjectOutputStream oos = null;
+        try {
+            outputStream = context.openFileOutput(MainActivity.MESSAGE_LIST_FILE, Context.MODE_PRIVATE);
+            oos = new ObjectOutputStream(outputStream);
+            oos.writeObject(list);
+            oos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if (oos!=null){
+                try {
+                    oos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (outputStream!=null){
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
