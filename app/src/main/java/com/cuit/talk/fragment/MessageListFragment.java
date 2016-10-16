@@ -14,10 +14,9 @@ import android.widget.Toast;
 
 import com.cuit.talk.activity.MainActivity;
 import com.cuit.talk.activity.R;
-import com.cuit.talk.activity.TestTalkActivity;
+import com.cuit.talk.activity.TalkMessageActivity;
 import com.cuit.talk.adapter.MessageListRecyviewAdapter;
 import com.cuit.talk.dependen.DividerItemDecoration;
-import com.cuit.talk.entity.Message;
 import com.cuit.talk.entity.MessageSimple;
 
 import java.io.FileInputStream;
@@ -75,7 +74,7 @@ public class MessageListFragment extends Fragment {
             @Override
             public void onItemClick(Context context, int position) {
                 Toast.makeText(container.getContext(), "长按可以删除哦", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context, TestTalkActivity.class);
+                Intent intent = new Intent(context, TalkMessageActivity.class);
                 intent.putExtra("personId",personId);
                 intent.putExtra("",messageSimpleList.get(position).getFriendId());
                 startActivity(intent);
@@ -117,7 +116,7 @@ public class MessageListFragment extends Fragment {
             ObjectInputStream ois = new ObjectInputStream(inputStream);
             messageSimpleList = (ArrayList<MessageSimple>) ois.readObject();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             if (messageSimpleList == null){
                 messageSimpleList = new ArrayList<MessageSimple>();
             }

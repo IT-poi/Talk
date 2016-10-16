@@ -1,21 +1,17 @@
 package com.cuit.talk.activity;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Window;
-import android.widget.ExpandableListView;
-import android.widget.Toast;
 
-import com.cuit.talk.adapter.FriendExpandableListAdapter;
 import com.cuit.talk.adapter.MainViewPagerAdapter;
 import com.cuit.talk.fragment.FrendListFragment;
 import com.cuit.talk.fragment.MessageListFragment;
+import com.cuit.talk.service.ReceiveMessageService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,15 +34,17 @@ public class MainActivity extends FragmentActivity {
     private Fragment messageFragmentView, friendListFragmentView, view3, view4, view5;
     //登陆用户id
     private int personId;
+    //service相关
+    public static Intent receiveServiceIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         personId = Integer.valueOf(getIntent().getStringExtra("personId"));
-
         initData();
         initView();
+
     }
 
     public void initData(){

@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by rice on 16-10-14.
  */
-public class TalkMessageRecyviewAdapter extends RecyclerView.Adapter{
+public class TalkMessageRecyclerViewAdapter extends RecyclerView.Adapter{
     /**
      * 根据这个messages来构建view中的item
      */
@@ -27,7 +27,7 @@ public class TalkMessageRecyviewAdapter extends RecyclerView.Adapter{
      * 构造方法:接受数据messages
      * @param messages 所有的消息
      */
-    public TalkMessageRecyviewAdapter(final List<Message> messages,int myselfId){
+    public TalkMessageRecyclerViewAdapter(final List<Message> messages, int myselfId){
 
         this.messages = messages;
         this.myselfId = myselfId;

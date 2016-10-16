@@ -11,7 +11,7 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.cuit.talk.activity.R;
-import com.cuit.talk.activity.TestTalkActivity;
+import com.cuit.talk.activity.TalkMessageActivity;
 import com.cuit.talk.adapter.FriendExpandableListAdapter;
 import com.cuit.talk.dao.GroupDao;
 import com.cuit.talk.dao.PersonDao;
@@ -58,7 +58,7 @@ public class FrendListFragment extends Fragment {
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 Toast.makeText(v.getContext(), "点击了" + groupList.get(groupPosition).getPersonsList().get(childPosition).getNickname(), Toast.LENGTH_SHORT).show();
                 int friendId = groupList.get(groupPosition).getPersonsList().get(childPosition).getId();
-                Intent intent = new Intent(v.getContext(), TestTalkActivity.class);
+                Intent intent = new Intent(v.getContext(), TalkMessageActivity.class);
                 intent.putExtra("personId", personId);
                 intent.putExtra("friendId", friendId);
                 startActivity(intent);

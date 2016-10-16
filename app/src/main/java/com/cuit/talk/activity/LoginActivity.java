@@ -16,7 +16,6 @@ import android.widget.EditText;
 import com.cuit.talk.entity.Person;
 import com.cuit.talk.entity.PersonSimple;
 import com.cuit.talk.util.HandleRemPass;
-import com.cuit.talk.util.HttpCallbackListener;
 import com.google.gson.Gson;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.Request;
