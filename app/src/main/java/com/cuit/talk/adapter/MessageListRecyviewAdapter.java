@@ -38,7 +38,7 @@ public class MessageListRecyviewAdapter extends RecyclerView.Adapter {
 
     private OnRecyclerViewListener onRecyclerViewListener;
 
-    public void setOnRecyclerViewListener(OnRecyclerViewListener onRecyclerViewListener) {
+    public void setOnRecyclerListener(OnRecyclerViewListener onRecyclerViewListener) {
         this.onRecyclerViewListener = onRecyclerViewListener;
     }
 
