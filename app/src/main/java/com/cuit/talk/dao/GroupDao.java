@@ -2,6 +2,7 @@ package com.cuit.talk.dao;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.cuit.talk.db.TalkOpenHelper;
@@ -71,17 +72,16 @@ public class GroupDao {
                 Group group = new Group();
                 group.setId(cursor.getInt(cursor.getColumnIndex("id")));
                 group.setGroupName(cursor.getString(cursor.getColumnIndex("group_name")));
-                group.setPersonId(cursor.getInt(cursor.getColumnIndex("personId")));
+                group.setPersonId(cursor.getInt(cursor.getColumnIndex("person_id")));
 
                 //通过分组id去查询该分组下的所有好友id
                 String[] groudIdValue = new String[]{String.valueOf(cursor.getInt(cursor.getColumnIndex("id")))};
-                List<Person> personList = null;
+                List<Person>  personList = new ArrayList<Person>();
                 Cursor perCursor = database.rawQuery(friendSql,groudIdValue);
                 if (perCursor.moveToFirst()){
-                    personList = new ArrayList<Person>();
                     do {
                         //通过好友id去查找该好友的信息
-                        Person person = personDao.queryPersonById(cursor.getInt(cursor.getColumnIndex("friend_id")));
+                        Person person = personDao.queryPersonById(perCursor.getInt(perCursor.getColumnIndex("friend_id")));
                         personList.add(person);
                     }while(perCursor.moveToNext());
                 }
@@ -101,11 +101,17 @@ public class GroupDao {
      * 增加分组
      * @param group 分组信息
      */
-    public void addGroup(Group group){
+    public Boolean addGroup(Group group){
         String sql = "insert into friend_groups values(?, ?, ?, ?)";
         String[] values = new String[]{String.valueOf(group.getId()), group.getGroupName(),
                 String.valueOf(group.getPersonId()), group.getCreateTime()};
-        database.execSQL(sql, values);
+        try{
+            database.execSQL(sql, values);
+        }catch (SQLiteConstraintException e){
+            return false;
+        }
+        return true;
+
     }
 
     /**

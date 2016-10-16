@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,12 +74,13 @@ public class FrendListFragment extends Fragment {
         personId = bundle.getInt("personId");
         groupDao = GroupDao.getInsetance(container.getContext());
         groupList = groupDao.queryGroupListByPersonId(personId);
+        Log.d("111", groupList.toString());
         if(groupList==null){
             groupList = new ArrayList<Group>();
 
             Group group = new Group();
-            group.setId(1);
-            group.setPersonId(1);
+            group.setId(100);
+            group.setPersonId(100);
             group.setGroupName("我的好友");
             group.setCreateTime("2015-6-24");
             List<Person> personList = new ArrayList<Person>();

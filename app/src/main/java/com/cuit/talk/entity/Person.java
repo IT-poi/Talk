@@ -24,6 +24,21 @@ public class Person {
     //住址
     private String address;
 
+    public Person(int id, String number, String password, String nickname, String truename, String sex, int age, String phone, String address) {
+        this.id = id;
+        this.number = number;
+        this.password = password;
+        this.nickname = nickname;
+        this.truename = truename;
+        this.sex = sex;
+        this.age = age;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    public Person() {
+    }
+
     public int getId() {
         return id;
     }
