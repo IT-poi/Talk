@@ -2,6 +2,7 @@ package com.cuit.talk.activity;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.Bundle;
@@ -14,10 +15,18 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.cuit.talk.adapter.TalkMessageRecyclerViewAdapter;
+import com.cuit.talk.dao.MessageDao;
 import com.cuit.talk.entity.Message;
 import com.cuit.talk.service.ReceiveMessageService;
+import com.google.gson.Gson;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.Request;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -33,32 +42,11 @@ public class TalkMessageActivity extends Activity implements View.OnClickListene
     //RecyclerView相关
     private List<Message> messages = new ArrayList<Message>();
     private TalkMessageRecyclerViewAdapter adapter;
-    //接受消息service
-    private ReceiveMessageService.ReceiveMessageBinder receiveMessageBinder;
-    private ServiceConnection receiveConnection = new ServiceConnection() {
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
 
-        }
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            receiveMessageBinder = (ReceiveMessageService.ReceiveMessageBinder) iBinder;
-            //回调函数处理接受消息。
-            receiveMessageBinder.getReceiveMessageService().
-                    setReceiveMessageCallbackListener(new ReceiveMessageService.MessageCallbackListener() {
-                @Override
-                public void onSuccess(Message message) {
-                    messages.add(message);
-                    adapter.notifyDataSetChanged();
-                    messageList_RV.smoothScrollToPosition(messages.size());
-                }
-                @Override
-                public void onError(String error) {
+    private MessageDao messageDao;
+    private int personId;
+    private int friendId;
 
-                }
-            });
-        }
-    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +54,7 @@ public class TalkMessageActivity extends Activity implements View.OnClickListene
         setContentView(R.layout.talk_message_layout);
         initData();
         initViews();
-        //bindService
-        bindService(MainActivity.receiveServiceIntent,receiveConnection,BIND_AUTO_CREATE);
+
     }
     private void initViews(){
         sendMessage_BT= (Button) findViewById(R.id.talk_message_layout_button);
@@ -87,29 +74,17 @@ public class TalkMessageActivity extends Activity implements View.OnClickListene
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(TalkMessageActivity.this);
         messageList_RV.setLayoutManager(layoutManager);
         //设置Adapter
-        adapter = new TalkMessageRecyclerViewAdapter(messages,1);
+        adapter = new TalkMessageRecyclerViewAdapter(messages,personId);
         messageList_RV.setAdapter(adapter);
+        messageList_RV.smoothScrollToPosition(messages.size());
 
     }
     private void initData() {
-        Message message = new Message();
-        message.setId(1);
-        message.setSendId(0);
-        message.setReceiveId(1);
-        Message message1 = new Message();
-        message1.setSendId(1);
-        message1.setReceiveId(0);
-        Random random = new Random(47);
-        for(int i = 0;i<50;i++){
-            switch (random.nextInt(2)){
-                case 1:
-                    messages.add(message);
-                    break;
-                case 0:
-                    messages.add(message1);
-                    break;
-            }
-        }
+        //接受MainActivity发送的数据
+        personId =  getIntent().getIntExtra("personId",0);
+        friendId = getIntent().getIntExtra("friendId",0);
+        messageDao = MessageDao.getInsetance(this);
+        messages = messageDao.queryMessageAll(personId,friendId);
     }
 
     @Override
@@ -117,41 +92,51 @@ public class TalkMessageActivity extends Activity implements View.OnClickListene
         switch (view.getId()){
             case R.id.talk_message_layout_button:
                 if(!TextUtils.isEmpty(inputMessage_ET.getText())){
+                    //读取消息
                     Message message = new Message();
+                    message.setSendId(personId);
+                    message.setReceiveId(friendId);
+                    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+                    String date=sdf.format(new java.util.Date(System.currentTimeMillis()));
+                    message.setSendTime(date);
                     message.setContent(inputMessage_ET.getText().toString());
-                    sendMessage(message);
+                    //更新消息列表
+                    inputMessage_ET.setText("");
+                    messages.add(message);
+                    adapter.notifyDataSetChanged();
+                    messageList_RV.smoothScrollToPosition(messages.size());
+                    //发送消息到服务器
+//                    sendMessage(message);
+                    //插入消息到本地数据库
+                    messageDao.insertMessage(message);
                 }
                 break;
             default:
                 break;
         }
     }
+
+    /**
+     * 发送消息到服务器
+     * @param message 自己写的message
+     */
     private void sendMessage(Message message){
-        inputMessage_ET.setText("");
-        messages.add(message);
-        adapter.notifyDataSetChanged();
-        messageList_RV.smoothScrollToPosition(messages.size());
-//        String json = new Gson().toJson(message);
-//        OkHttpUtils.postString()
-//                .url("")
-//                .mediaType(MediaType.parse("application/json; charset=utf-8"))
-//                .content(json)
-//                .build()
-//                .execute(new StringCallback() {
-//                    @Override
-//                    public void onError(Request request, Exception e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onResponse(String response) {
-//
-//                    }
-//                });
-    }
-    @Override
-    protected void onDestroy() {
-        unbindService(receiveConnection);//解绑服务
-        super.onDestroy();
+        String json = new Gson().toJson(message);
+        OkHttpUtils.postString()
+                .url("")
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(json)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Request request, Exception e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                });
     }
 }

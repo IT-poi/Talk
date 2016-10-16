@@ -27,7 +27,7 @@ public class TalkOpenHelper extends SQLiteOpenHelper{
             "address text)";
     //创建消息数据表的sql
     private final String create_message = "create table message(" +
-            "id integer primary key, " +
+            "id integer primary key autoincrement, " +
             "send_id integer, " +
             "receive_id integer, " +
             "content text, " +

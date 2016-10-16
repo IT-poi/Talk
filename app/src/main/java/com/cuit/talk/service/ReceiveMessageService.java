@@ -4,11 +4,13 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
+import android.icu.text.LocaleDisplayNames;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.MotionEventCompat;
+import android.util.Log;
 
 import com.cuit.talk.activity.R;
 import com.cuit.talk.dao.PersonDao;
@@ -71,13 +73,21 @@ public class ReceiveMessageService extends Service{
             @Override
             public void run() {
                 while(true){
-                    receiveMessageFromServer();
+                    try {
+                        Thread.sleep(3000);
+                        receiveMessageFromServer();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }).start();
         return super.onStartCommand(intent, flags, startId);
     }
 
+    /**
+     * 向服务器请求消息,看是否有发给自己的消息,然后接受
+     */
     private void receiveMessageFromServer(){
         PersonSimple personSimple = new PersonSimple();
         personSimple.setNumber(myselfId);
@@ -104,10 +114,16 @@ public class ReceiveMessageService extends Service{
                         setInform(messageList);
                     }
                 });
+
     }
+
+    /**
+     * 该方法是选择所有消息列表中的最后一个消息设置为通知
+     * @param messageList 所有消息的列表
+     */
     private void setInform(List<Message> messageList){
         //把最后一条消息设置为通知
-        Message message = messageList.get(messageList.size());
+        Message message = messageList.get(messageList.size()-1);
         //从数据库中查询发送者
         PersonDao personDao = PersonDao.getInsetance(getApplicationContext());
         Person sendPerson = personDao.queryPersonById(message.getSendId());
@@ -116,11 +132,10 @@ public class ReceiveMessageService extends Service{
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext());
         mBuilder.setContentTitle(sendPerson.getNickname())
                 .setContentText(message.getContent())
-                .setWhen(System.currentTimeMillis());
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.drawable.talk_touxiang);
         Notification notification = mBuilder.build();
-        mManager.notify(1,notification);
-
-
+        mManager.notify(0,notification);
     }
 
 }

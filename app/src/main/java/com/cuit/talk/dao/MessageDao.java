@@ -3,11 +3,13 @@ package com.cuit.talk.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.cuit.talk.db.TalkOpenHelper;
 import com.cuit.talk.entity.Message;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -44,12 +46,13 @@ public class MessageDao {
      * @return 消息list
      */
     public List<Message> queryMessageAll(int sendId, int receiveId){
-        List<Message> list = null;
-        String sql = "select * from message where send_id = ? and receive_id = ?";
+        List<Message> list = new ArrayList<Message>();
+        String sql = "select * from message where (send_id = ? and receive_id = ?)" +
+                " or (receive_id = ? and send_id = ?)";
         Cursor cursor = database.rawQuery(sql,
-                new String[]{String.valueOf(sendId), String.valueOf(receiveId)});
+                new String[]{String.valueOf(sendId), String.valueOf(receiveId),
+                        String.valueOf(receiveId), String.valueOf(sendId)});
         if(cursor.moveToFirst()){
-            list = new ArrayList<Message>();
             do{
                 Message message = new Message();
                 message.setId(cursor.getInt(cursor.getColumnIndex("id")));
@@ -69,10 +72,12 @@ public class MessageDao {
      */
     public void insertMessage(Message message){
 
-        String sql = "insert into message values(?, ?, ?, ?, ?)";
-        String[] values = new String[]{String.valueOf(message.getId()),
-                String.valueOf(message.getSendId()), String.valueOf(message.getSendId()),
-                String.valueOf(message.getReceiveId()), message.getContent(), message.getSendTime()};
+        String sql = "insert into message(send_id,receive_id,content,send_time) values(?, ?, ?, ?)";
+        String[] values = new String[]{String.valueOf(message.getSendId()),
+                String.valueOf(message.getReceiveId()),
+                message.getContent(),
+                message.getSendTime()};
+        Log.d("insertMessage", Arrays.toString(values));
         database.execSQL(sql,values);
     }
 

@@ -1,14 +1,19 @@
 package com.cuit.talk.activity;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Window;
 
 import com.cuit.talk.adapter.MainViewPagerAdapter;
+import com.cuit.talk.entity.Message;
 import com.cuit.talk.fragment.FrendListFragment;
 import com.cuit.talk.fragment.MessageListFragment;
 import com.cuit.talk.service.ReceiveMessageService;
@@ -23,12 +28,6 @@ public class MainActivity extends FragmentActivity {
     private android.support.design.widget.TabLayout tableLayout;
     private ViewPager viewPager;
 
-
-//    private String[] armTypes;
-//
-//    private String[][] arms;
-
-//    private LayoutInflater inflater;
     private List<String> titleList = new ArrayList<String>();
     private List<Fragment> viewList = new ArrayList<Fragment>();
     private Fragment messageFragmentView, friendListFragmentView, view3, view4, view5;
@@ -36,6 +35,31 @@ public class MainActivity extends FragmentActivity {
     private int personId;
     //service相关
     public static Intent receiveServiceIntent;
+    //接受消息service
+    private ReceiveMessageService.ReceiveMessageBinder receiveMessageBinder;
+    private ServiceConnection receiveConnection = new ServiceConnection() {
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+
+        }
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            receiveMessageBinder = (ReceiveMessageService.ReceiveMessageBinder) iBinder;
+            //回调函数处理接受消息。
+            receiveMessageBinder.setMyselfId(String.valueOf(personId));
+            receiveMessageBinder.getReceiveMessageService().
+                    setReceiveMessageCallbackListener(new ReceiveMessageService.MessageCallbackListener() {
+                        @Override
+                        public void onSuccess(Message message) {
+                            //接受消息逻辑
+                        }
+                        @Override
+                        public void onError(String error) {
+
+                        }
+                    });
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +68,10 @@ public class MainActivity extends FragmentActivity {
         personId = getIntent().getIntExtra("personId", 0);
         initData();
         initView();
+//        //启动service
+//        receiveServiceIntent = new Intent(MainActivity.this,ReceiveMessageService.class);
+//        bindService(MainActivity.receiveServiceIntent,receiveConnection,BIND_AUTO_CREATE);
+//        startService(receiveServiceIntent);
 
     }
 
@@ -69,5 +97,12 @@ public class MainActivity extends FragmentActivity {
         MainViewPagerAdapter mAdapter = new MainViewPagerAdapter(getSupportFragmentManager(), viewList, titleList);
         viewPager.setAdapter(mAdapter);//给ViewPager设置适配器
         tableLayout.setupWithViewPager(viewPager);//将TabLayout和ViewPager关联起来。
+    }
+
+    @Override
+    protected void onDestroy() {
+        unbindService(receiveConnection);
+        stopService(receiveServiceIntent);
+        super.onDestroy();
     }
 }

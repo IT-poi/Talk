@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+
 import com.cuit.talk.dao.GroupDao;
 import com.cuit.talk.dao.PersonDao;
 import com.cuit.talk.entity.Friend;
@@ -47,7 +48,6 @@ public class WelcomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_welcome_layout);
-
         handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
@@ -126,6 +126,7 @@ public class WelcomeActivity extends Activity {
             personDao.addFriend(friend);
 
             editor.putBoolean("firstUse", false);
+            editor.apply();
         }
     }
 

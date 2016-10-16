@@ -74,7 +74,7 @@ public class FrendListFragment extends Fragment {
         personId = bundle.getInt("personId");
         groupDao = GroupDao.getInsetance(container.getContext());
         groupList = groupDao.queryGroupListByPersonId(personId);
-        Log.d("111", groupList.toString());
+//        Log.d("111", groupList.toString());
         if(groupList==null){
             groupList = new ArrayList<Group>();
 
