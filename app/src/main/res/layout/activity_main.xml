@@ -16,11 +16,17 @@
         app:tabTextColor="#6b6b6b"
         android:layout_alignParentBottom="true"
         android:background="#ffffffff"/>
+    <TextView
+        android:id="@+id/rule_tv"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ecebeb"
+        android:layout_above="@id/tabs"/>
 
     <!--可滑动的布局内容-->
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_view"
-        android:layout_above="@+id/tabs"
+        android:layout_above="@+id/rule_tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

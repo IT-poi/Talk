@@ -47,11 +47,10 @@ public class MessageDao {
      */
     public List<Message> queryMessageAll(int sendId, int receiveId){
         List<Message> list = new ArrayList<Message>();
-        String sql = "select * from message where (send_id = ? and receive_id = ?)" +
-                " or (receive_id = ? and send_id = ?)";
-        Cursor cursor = database.rawQuery(sql,
-                new String[]{String.valueOf(sendId), String.valueOf(receiveId),
-                        String.valueOf(receiveId), String.valueOf(sendId)});
+        String sql = "select * from message where (send_id = ? or send_id = ?)" +
+                " and (receive_id = ? or receive_id = ?)";
+        String[] values = new String[]{String.valueOf(sendId), String.valueOf(receiveId), String.valueOf(sendId), String.valueOf(receiveId)};
+        Cursor cursor = database.rawQuery(sql, values);
         if(cursor.moveToFirst()){
             do{
                 Message message = new Message();
@@ -73,7 +72,7 @@ public class MessageDao {
      */
     public void insertMessage(Message message){
 
-        String sql = "insert into message(send_id,receive_id,content,send_time) values(?, ?, ?, ?)";
+        String sql = "insert into message(send_id, receive_id, content,send_time) values(?, ?, ?, ?)";
         String[] values = new String[]{String.valueOf(message.getSendId()),
                 String.valueOf(message.getReceiveId()),
                 message.getContent(),

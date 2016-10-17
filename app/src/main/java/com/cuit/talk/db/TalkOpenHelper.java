@@ -17,7 +17,7 @@ public class TalkOpenHelper extends SQLiteOpenHelper{
 
     //创建用户数据表的sql
     private final String create_person = "create table person(" +
-            "id integer primary key, " +
+            "id integer primary key autoincrement, " +
             "number text, " +
             "password text, " +
             "nickname text, " +
@@ -35,13 +35,13 @@ public class TalkOpenHelper extends SQLiteOpenHelper{
             "send_time text)";
     //创建分组数据表的sql
     private final String create_groups = "create table friend_groups(" +
-            "id integer primary key, " +
+            "id integer primary key autoincrement, " +
             "group_name text, " +
             "person_id integer, " +
             "create_time text)";
     //创建好友数据表的sql
     private final String create_friend = "create table friend(" +
-            "id integer primary key, " +
+            "id integer primary key autoincrement, " +
             "person_id integer, " +
             "group_id integer, " +
             "friend_id integer, " +

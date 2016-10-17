@@ -47,40 +47,44 @@ public class WelcomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_welcome_layout);
-        handler = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                switch (msg.what){
-                    case 1:
-                        Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
-                        break;
-                    default:
-                        Intent intent1 = new Intent(WelcomeActivity.this, LoginActivity.class);
-                        startActivity(intent1);
-                        finish();
-                        break;
-                }
-            }
-        };
-
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    sleep(1);
-                    initData();
-                    Message message = new Message();
-                    message.what = 1;
-                    handler.sendMessage(message);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        initData();
+        Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+//        handler = new Handler(){
+//            @Override
+//            public void handleMessage(Message msg) {
+//                super.handleMessage(msg);
+//                switch (msg.what){
+//                    case 1:
+//                        Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                        break;
+//                    default:
+//                        Intent intent1 = new Intent(WelcomeActivity.this, LoginActivity.class);
+//                        startActivity(intent1);
+//                        finish();
+//                        break;
+//                }
+//            }
+//        };
+//
+//
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    sleep(300);
+//                    initData();
+//                    Message message = new Message();
+//                    message.what = 1;
+//                    handler.sendMessage(message);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
     }
 
     public void initData(){

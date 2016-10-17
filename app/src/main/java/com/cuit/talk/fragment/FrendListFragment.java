@@ -1,19 +1,22 @@
 package com.cuit.talk.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import com.cuit.talk.activity.AddFriendActivity;
 import com.cuit.talk.activity.R;
 import com.cuit.talk.activity.TalkMessageActivity;
 import com.cuit.talk.adapter.FriendExpandableListAdapter;
+import com.cuit.talk.callback.TitleHeadImageOnClickCallBack;
+import com.cuit.talk.control.TitleLayout;
 import com.cuit.talk.dao.GroupDao;
 import com.cuit.talk.dao.PersonDao;
 import com.cuit.talk.entity.Group;
@@ -41,6 +44,12 @@ public class FrendListFragment extends Fragment {
 
     private List<Group> groupList;
 
+    private ExpandableListView expandableListView;
+
+    private FriendExpandableListAdapter adapter;
+
+    private boolean isOncreate = false;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,10 +58,12 @@ public class FrendListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        initData(container);
+        initData(container.getContext());
+
+        //加载好友列表,并显示设置点击事件
         View view = inflater.inflate(R.layout.friend_list_layout, container, false);
-        ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.friend_expandableListView_list);
-        FriendExpandableListAdapter adapter = new FriendExpandableListAdapter(view.getContext(),groupList);
+        expandableListView = (ExpandableListView) view.findViewById(R.id.friend_expandableListView_list);
+        adapter = new FriendExpandableListAdapter(view.getContext(),groupList);
         expandableListView.setAdapter(adapter);
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
@@ -66,33 +77,58 @@ public class FrendListFragment extends Fragment {
                 return true;
             }
         });
+        //上边标题栏的加载
+        TitleLayout titleLayout = (TitleLayout)view.findViewById(R.id.friend_list_title);
+        titleLayout.setOnHeadClickListener(new TitleHeadImageOnClickCallBack() {
+            @Override
+            public void onHeadClickListener(Context context) {
+                Toast.makeText(context, "点击了标题栏左边的头像", Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onAddClickListener(Context context) {
+                Intent intent = new Intent(context, AddFriendActivity.class);
+                intent.putExtra("personId",personId);
+                context.startActivity(intent);
+            }
+        });
+        titleLayout.setTitleName("好友");
+        isOncreate = true;
         return view;
     }
-    private void initData(ViewGroup container){
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(!isOncreate){
+            initData(getActivity());
+            expandableListView.deferNotifyDataSetChanged();
+        }
+    }
+
+    private void initData(Context context){
         Bundle bundle = getArguments();
         personId = bundle.getInt("personId");
-        groupDao = GroupDao.getInsetance(container.getContext());
+        groupDao = GroupDao.getInsetance(context);
         groupList = groupDao.queryGroupListByPersonId(personId);
 //        Log.d("111", groupList.toString());
         if(groupList==null){
             groupList = new ArrayList<Group>();
-
-            Group group = new Group();
-            group.setId(100);
-            group.setPersonId(100);
-            group.setGroupName("我的好友");
-            group.setCreateTime("2015-6-24");
-            List<Person> personList = new ArrayList<Person>();
-
-            Person person = new Person();
-            person.setNickname("孤独的日");
-            personList.add(person);
-            Person person1 = new Person();
-            person1.setNickname("闪烁的星");
-            personList.add(person1);
-            group.setPersonsList(personList);
-            groupList.add(group);
+//            Group group = new Group();
+//            group.setId(100);
+//            group.setPersonId(100);
+//            group.setGroupName("我的好友");
+//            group.setCreateTime("2015-6-24");
+//            List<Person> personList = new ArrayList<Person>();
+//
+//            Person person = new Person();
+//            person.setNickname("孤独的日");
+//            personList.add(person);
+//            Person person1 = new Person();
+//            person1.setNickname("闪烁的星");
+//            personList.add(person1);
+//            group.setPersonsList(personList);
+//            groupList.add(group);
         }
 
         armTypes = new String[]{

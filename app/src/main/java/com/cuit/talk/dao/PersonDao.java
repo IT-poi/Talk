@@ -96,10 +96,16 @@ public class PersonDao {
      * @param person 用户信息
      */
     public Boolean insertPerson(Person person){
-        String sql = "insert into person values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        String[] values = new String[]{String.valueOf(person.getId()),person.getNumber(),
-                person.getPassword(), person.getNickname(), person.getTruename(), person.getSex(), String.valueOf(person.getAge()),
-                person.getPhone(), person.getAddress()};
+        String sql = "insert into person(number, password, nickname, truename, sex, age, phone, address) values(?, ?, ?, ?, ?, ?, ?, ?)";
+        String[] values = new String[]{
+                person.getNumber(),
+                person.getPassword(),
+                person.getNickname(),
+                person.getTruename(),
+                person.getSex(),
+                String.valueOf(person.getAge()),
+                person.getPhone(),
+                person.getAddress()};
         try{
             database.execSQL(sql, values);
         }catch (SQLiteConstraintException e){
@@ -156,14 +162,15 @@ public class PersonDao {
     }
 
     //TODO
-    public void addFriend(Friend friend){
-        String sql = "insert into friend values(?, ?, ?, ?, ?)";
-        String[] values = new String[] {String.valueOf(friend.getId()), String.valueOf(friend.getPersonId()),
+    public boolean addFriend(Friend friend){
+        String sql = "insert into friend(person_id, group_id, friend_id, create_time) values(?, ?, ?, ?)";
+        String[] values = new String[] {String.valueOf(friend.getPersonId()),
                 String.valueOf(friend.getGroupId()), String.valueOf(friend.getFriendId()), friend.getCreateTime()};
         try{
             database.execSQL(sql, values);
         }catch (SQLiteConstraintException e){
-
+            return false;
         }
+        return true;
     }
 }

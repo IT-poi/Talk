@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cuit.talk.activity.MainActivity;
 import com.cuit.talk.activity.R;
 import com.cuit.talk.activity.TalkMessageActivity;
 import com.cuit.talk.adapter.MessageListRecycleViewAdapter;
@@ -23,6 +24,9 @@ import com.cuit.talk.entity.Message;
 import com.cuit.talk.entity.MessageSimple;
 import com.cuit.talk.entity.Person;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +72,7 @@ public class MessageListFragment extends Fragment {
             public void onItemClick(Context context, int position) {
                 Intent intent = new Intent(context, TalkMessageActivity.class);
                 intent.putExtra("personId",personId);
-                intent.putExtra("",messageSimpleList.get(position).getFriendId());
+                intent.putExtra(" ",messageSimpleList.get(position).getFriendId());
                 startActivity(intent);
             }
             /**
@@ -94,9 +98,6 @@ public class MessageListFragment extends Fragment {
         return view;
     }
 
-    /**
-     * 每次都要加载最近联系人
-     */
     @Override
     public void onStart() {
         loadContact(getActivity());
@@ -116,7 +117,7 @@ public class MessageListFragment extends Fragment {
      * @param context context
      * @param personId 自己的id
      */
-    private void queryMessageSimpleList(Context context,int personId){
+    private void queryMessageSimpleList(Context context,int personId) {
         messageSimpleList.clear();
         List<Contact> contactList = new ArrayList<Contact>();
         MessageSimple messageSimple = null;
@@ -127,11 +128,11 @@ public class MessageListFragment extends Fragment {
         PersonDao personDao = PersonDao.getInsetance(context);
         MessageDao messageDao = MessageDao.getInsetance(context);
         contactList = contactDao.queryAllContactByPersonId(personId);
-        for(Contact contact:contactList){
+        for (Contact contact : contactList) {
             messageSimple = new MessageSimple();
             person = personDao.queryPersonById(contact.getFriendId());
-            messageList = messageDao.queryMessageAll(contact.getPersonId(),contact.getFriendId());
-            message = messageList.get(messageList.size()-1);
+            messageList = messageDao.queryMessageAll(contact.getPersonId(), contact.getFriendId());
+            message = messageList.get(messageList.size() - 1);
             messageSimple.setFriendId(contact.getFriendId());
             messageSimple.setFriendNickname(person.getNickname());
             messageSimple.setLastMessageTime(message.getSendTime());
