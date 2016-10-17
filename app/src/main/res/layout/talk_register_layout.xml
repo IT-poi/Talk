@@ -45,6 +45,40 @@
                 android:layout_marginBottom="1dp"
                 android:textSize="@dimen/title_text"
                 android:textColor="@color/colorTitle"
+                android:text="手机号"/>
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#d6d4d4"/>
+            <EditText
+                android:id="@+id/talk_register_number_ev"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:hint="请输入你的手机号"
+                android:gravity="left|center"
+                android:paddingLeft="10dp"
+                android:inputType="number"
+                android:background="#FFFFFF"/>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_text_height"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/input_linear_selector">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:textSize="@dimen/title_text"
+                    android:textColor="@color/colorTitle"
                 android:text="昵称"/>
             <TextView
                 android:layout_width="1dp"
@@ -63,7 +97,6 @@
                 android:gravity="left|center"
                 android:paddingLeft="10dp"
                 android:background="#FFFFFF"/>
-
         </LinearLayout>
 
         <LinearLayout

@@ -27,7 +27,7 @@ public class PersonDao {
     private PersonDao(Context context){
         this.context = context;
         TalkOpenHelper dbHelper = new TalkOpenHelper(context,
-                TalkOpenHelper.DB_NAMW, null, TalkOpenHelper.VERSION);
+                TalkOpenHelper.DB_NAME, null, TalkOpenHelper.VERSION);
         database = dbHelper.getWritableDatabase();
     }
 

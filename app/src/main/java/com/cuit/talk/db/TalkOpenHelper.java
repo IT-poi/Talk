@@ -3,6 +3,7 @@ package com.cuit.talk.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by 落叶刻痕 on 2016/10/11.
@@ -10,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class TalkOpenHelper extends SQLiteOpenHelper{
 
-    public static final String DB_NAMW = "talk";
+    public static final String DB_NAME = "talk";
 
     public static final int VERSION = 1;
 
@@ -45,6 +46,10 @@ public class TalkOpenHelper extends SQLiteOpenHelper{
             "group_id integer, " +
             "friend_id integer, " +
             "create_time text)";
+    //创建最近联系人的sql
+    private final String create_contact = "create table contact(" +
+            "person_id integer," +
+            "friend_id integer)";
 
     public TalkOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -52,10 +57,12 @@ public class TalkOpenHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        Log.d("TalkOpenHelper","onCreate");
         sqLiteDatabase.execSQL(create_person);
         sqLiteDatabase.execSQL(create_friend);
         sqLiteDatabase.execSQL(create_message);
         sqLiteDatabase.execSQL(create_groups);
+        sqLiteDatabase.execSQL(create_contact);
     }
 
     @Override

@@ -4,11 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f1eeee">
-
-    <com.cuit.talk.control.TalkTitleLayout
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </com.cuit.talk.control.TalkTitleLayout>
+        android:layout_height="50dp"
+        android:background="#13A6F0"
+        android:layout_marginTop="0dp"
+        android:gravity="center_horizontal">
+        <Button
+            android:id="@+id/talk_message_layout_cancel"
+            android:layout_width="60dp"
+            android:layout_gravity="center"
+            android:layout_height="40dp"
+            android:background="@drawable/title_left_button_selector"
+            android:text="返回"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/talk_message_layout_textView"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+        <Button
+            android:id="@+id/talk_message_layout_info"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/title_left_button_selector"
+            android:text="信息"
+            android:textSize="16sp"
+            android:textColor="#fff"/>
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_talk_message_rv"

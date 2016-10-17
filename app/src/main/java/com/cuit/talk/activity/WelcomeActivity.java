@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-
 import com.cuit.talk.dao.GroupDao;
 import com.cuit.talk.dao.PersonDao;
 import com.cuit.talk.entity.Friend;

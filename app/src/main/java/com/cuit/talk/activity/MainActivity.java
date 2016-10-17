@@ -99,10 +99,12 @@ public class MainActivity extends FragmentActivity {
         tableLayout.setupWithViewPager(viewPager);//将TabLayout和ViewPager关联起来。
     }
 
+
+
     @Override
     protected void onDestroy() {
-        unbindService(receiveConnection);
-        stopService(receiveServiceIntent);
+//        unbindService(receiveConnection);
+//        stopService(receiveServiceIntent);
         super.onDestroy();
     }
 }

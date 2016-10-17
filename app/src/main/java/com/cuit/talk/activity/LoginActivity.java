@@ -113,6 +113,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                         intent.putExtra("personId",person.getId());
                         startActivity(intent);
+                        finish();
                     }
 
 

@@ -23,7 +23,7 @@ public class MessageDao {
     private SQLiteDatabase database;
 
     public MessageDao(Context context) {
-        TalkOpenHelper dbHelper = new TalkOpenHelper(context, TalkOpenHelper.DB_NAMW, null, TalkOpenHelper.VERSION);
+        TalkOpenHelper dbHelper = new TalkOpenHelper(context, TalkOpenHelper.DB_NAME, null, TalkOpenHelper.VERSION);
         database = dbHelper.getWritableDatabase();
     }
 
@@ -60,6 +60,7 @@ public class MessageDao {
                 message.setReceiveId(cursor.getInt(cursor.getColumnIndex("receive_id")));
                 message.setContent(cursor.getString(cursor.getColumnIndex("content")));
                 message.setSendTime(cursor.getString(cursor.getColumnIndex("send_time")));
+                list.add(message);
             }while (cursor.moveToNext());
         }
         cursor.close();

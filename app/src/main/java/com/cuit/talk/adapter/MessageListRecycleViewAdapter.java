@@ -1,7 +1,6 @@
 package com.cuit.talk.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,14 +12,13 @@ import android.widget.TextView;
 
 import com.cuit.talk.activity.R;
 import com.cuit.talk.entity.MessageSimple;
-import com.cuit.talk.entity.Person;
 
 import java.util.List;
 
 /**
  * Created by inori on 16/10/6.
  */
-public class MessageListRecyviewAdapter extends RecyclerView.Adapter {
+public class MessageListRecycleViewAdapter extends RecyclerView.Adapter {
 
     public static interface OnRecyclerViewListener{
         /**
@@ -42,14 +40,14 @@ public class MessageListRecyviewAdapter extends RecyclerView.Adapter {
         this.onRecyclerViewListener = onRecyclerViewListener;
     }
 
-    public static final String TAG = MessageListRecyviewAdapter.class.getSimpleName();  //日志
+    public static final String TAG = MessageListRecycleViewAdapter.class.getSimpleName();  //日志
 
     /**
      * 根据这个list来构建view的item
      */
     private List<MessageSimple> list;
 
-    public MessageListRecyviewAdapter(List<MessageSimple> list) {
+    public MessageListRecycleViewAdapter(List<MessageSimple> list) {
         this.list = list;
     }
 

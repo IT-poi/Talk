@@ -32,7 +32,7 @@ public class GroupDao {
      */
     private GroupDao(Context context){
         TalkOpenHelper dbHelper = new TalkOpenHelper(context,
-                TalkOpenHelper.DB_NAMW, null, TalkOpenHelper.VERSION);
+                TalkOpenHelper.DB_NAME, null, TalkOpenHelper.VERSION);
         database = dbHelper.getWritableDatabase();
         this.context = context;
     }
