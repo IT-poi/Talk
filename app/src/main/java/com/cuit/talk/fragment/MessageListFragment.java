@@ -78,7 +78,7 @@ public class MessageListFragment extends Fragment {
                 Toast.makeText(container.getContext(), "长按可以删除哦", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, TalkMessageActivity.class);
                 intent.putExtra("personId",personId);
-                intent.putExtra("",messageSimpleList.get(position).getFriendId());
+                intent.putExtra(" ",messageSimpleList.get(position).getFriendId());
                 startActivity(intent);
             }
 
@@ -106,6 +106,10 @@ public class MessageListFragment extends Fragment {
         return view;
     }
 
+    /**
+     * 初始化数据,加载最近联系人列表
+     * @param context
+     */
     private void initData(Context context){
         Bundle bundle = getArguments();
         personId = bundle.getInt("personId");
@@ -120,6 +124,10 @@ public class MessageListFragment extends Fragment {
         }
     }
 
+    /**
+     * 去文件查询最近联系人列表
+     * @param context
+     */
     private void queryMessageSampleList(Context context){
         try {
             FileInputStream inputStream = context.openFileInput(MainActivity.MESSAGE_LIST_FILE);
@@ -139,6 +147,11 @@ public class MessageListFragment extends Fragment {
         }
     }
 
+    /**
+     * 修改后的最近联系人列表存入文件
+     * @param context
+     * @param list
+     */
     private void saveMessageSimpleList(Context context, List<MessageSimple> list){
         FileOutputStream outputStream = null;
         ObjectOutputStream oos = null;

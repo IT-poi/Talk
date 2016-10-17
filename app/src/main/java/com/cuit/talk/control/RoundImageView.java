@@ -56,39 +56,28 @@ import com.cuit.talk.activity.R;
 
  */
 
-public
-class  RoundImageView extends
-        ImageView {
+public class  RoundImageView extends ImageView {
 
-    private
-    int  mBorderThickness = 0;
+    private int  mBorderThickness = 0;
 
-    private
-    Context mContext;
+    private Context mContext;
 
-    private
-    int  defaultColor = 0xFFFFFFFF;
+    private int  defaultColor = 0xFFFFFFFF;
 
     // 如果只有其中一个有值，则只画一个圆形边框
 
-    private
-    int  mBorderOutsideColor = 0;
+    private int  mBorderOutsideColor = 0;
 
-    private
-    int  mBorderInsideColor = 0;
+    private int  mBorderInsideColor = 0;
 
     // 控件默认长、宽
 
-    private
-    int  defaultWidth = 0;
+    private int  defaultWidth = 0;
 
-    private
-    int  defaultHeight = 0;
+    private int  defaultHeight = 0;
 
 
-
-    public
-    RoundImageView(Context context) {
+    public RoundImageView(Context context) {
 
         super(context);
 
@@ -98,8 +87,7 @@ class  RoundImageView extends
 
 
 
-    public
-    RoundImageView(Context context, AttributeSet attrs) {
+    public RoundImageView(Context context, AttributeSet attrs) {
 
         super(context, attrs);
 
@@ -111,8 +99,7 @@ class  RoundImageView extends
 
 
 
-    public
-    RoundImageView(Context context, AttributeSet attrs, int
+    public RoundImageView(Context context, AttributeSet attrs, int
             defStyle) {
 
         super(context, attrs, defStyle);
@@ -125,8 +112,7 @@ class  RoundImageView extends
 
 
 
-    private
-    void  setCustomAttributes(AttributeSet attrs) {
+    private void  setCustomAttributes(AttributeSet attrs) {
 
         TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.roundedimageview);
 
@@ -142,8 +128,7 @@ class  RoundImageView extends
 
     @Override
 
-    protected
-    void  onDraw(Canvas canvas) {
+    protected void  onDraw(Canvas canvas) {
 
         Drawable drawable = getDrawable() ;
 
@@ -246,9 +231,7 @@ class  RoundImageView extends
 
      */
 
-    public
-    Bitmap getCroppedRoundBitmap(Bitmap bmp, int
-            radius) {
+    public Bitmap getCroppedRoundBitmap(Bitmap bmp, int radius) {
 
         Bitmap scaledSrcBmp;
 
@@ -284,8 +267,7 @@ class  RoundImageView extends
 
             squareBitmap = Bitmap.createBitmap(bmp, x, y, squareWidth, squareHeight);
 
-        } else
-        if  (bmpHeight < bmpWidth) {// 宽大于高
+        } else if  (bmpHeight < bmpWidth) {// 宽大于高
 
             squareWidth = squareHeight = bmpHeight;
 
@@ -373,10 +355,7 @@ class  RoundImageView extends
 
      */
 
-    private
-    void  drawCircleBorder(Canvas canvas, int
-            radius, int
-                                   color) {
+    private void  drawCircleBorder(Canvas canvas, int radius, int color) {
 
         Paint paint = new
                 Paint();

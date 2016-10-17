@@ -102,8 +102,8 @@ public class GroupDao {
      * @param group 分组信息
      */
     public Boolean addGroup(Group group){
-        String sql = "insert into friend_groups values(?, ?, ?, ?)";
-        String[] values = new String[]{String.valueOf(group.getId()), group.getGroupName(),
+        String sql = "insert into friend_groups(group_name, person_id, create_time) values(?, ?, ?)";
+        String[] values = new String[]{group.getGroupName(),
                 String.valueOf(group.getPersonId()), group.getCreateTime()};
         try{
             database.execSQL(sql, values);

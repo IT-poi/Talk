@@ -60,7 +60,8 @@
                 android:background="#00d6d3d3"
                 android:textSize="14sp"
                 android:text="无法登录?"
-                android:textColor="#66bfec"/>
+                android:textColor="#66bfec"
+                android:paddingLeft="10dp"/>
             <Button
                 android:id="@+id/login_register_bt"
                 android:layout_width="wrap_content"
@@ -70,8 +71,8 @@
                 android:text="新用户注册"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:textColor="#66bfec" />
+                android:textColor="#66bfec"
+                android:paddingRight="10dp"/>
         </RelativeLayout>
     </RelativeLayout>
-
 </LinearLayout>
